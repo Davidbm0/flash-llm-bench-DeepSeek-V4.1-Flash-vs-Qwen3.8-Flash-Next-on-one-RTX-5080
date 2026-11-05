@@ -1,0 +1,19 @@
+{
+  "_comment": "cfg_M (winner of the A-N sweep), paths sanitized. Engine: Strata strata-dsv41 (CUDA 13 build).",
+  "model_name": "deepseek-v4.1-flash",
+  "arch": "deepseek41",
+  "pack": "<path-to>/deepseek-v4.1-flash-ist-das-2.25bpw",
+  "port": 8081,
+  "gpu": 0,
+  "args": [
+    "--pack", "<path-to>/deepseek-v4.1-flash-ist-das-2.25bpw",
+    "--max-context", "32768",
+    "--eos", "1",
+    "--vision", "off",
+    "--dspark", "auto",
+    "--dspark-conf", "0.65",
+    "--ssd-policy", "lfu",
+    "--ssd-cache", "76"
+  ],
+  "reasoning_budget_tokens": 12000
+}

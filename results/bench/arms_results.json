@@ -1,0 +1,745 @@
+[
+ {
+  "arm": "A",
+  "started": "04.11 19:00:07",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 83.8,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 9.55
+   },
+   {
+    "s": 72.7,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 11.0
+   },
+   {
+    "s": 69.3,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 11.55
+   }
+  ],
+  "prefill": {
+   "s": 13.0,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 487.7,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 8.2
+  },
+  "engine_lines": [
+   "ds4: CUDA0 layers [0, 39] + head: weights 5.86 GB, experts 3.62 GB (333 of 15360 in VRAM), caches 0.03 GB, 0 MiB free",
+   "ds4: 15027 routed experts on the CPU lane (146.2 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2598 ms (9.6 tok/s), 800 generated in 81187 ms (9.85 tok/s); CPU lane 57.0% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 288 ms (3.5 tok/s), 800 generated in 72456 ms (11.04 tok/s); CPU lane 55.7% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 273 ms (3.7 tok/s), 800 generated in 69001 ms (11.59 tok/s); CPU lane 54.4% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 13015 ms (640.8 tok/s), 1 generated in 0 ms (2882.68 tok/s); CPU lane 16.1% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 6264 ms (21.6 tok/s), 3000 generated in 360587 ms (8.32 tok/s); CPU lane 34.1% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1366 ms (12.4 tok/s), 983 generated in 119431 ms (8.23 tok/s); CPU lane 38.1% of the experts"
+  ],
+  "ended": "04.11 19:12:52"
+ },
+ {
+  "arm": "B",
+  "started": "04.11 19:12:52",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 100.6,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 7.95
+   },
+   {
+    "s": 91.1,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 8.78
+   },
+   {
+    "s": 91.1,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 8.78
+   }
+  ],
+  "prefill": {
+   "s": 12.4,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 591.5,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 6.76
+  },
+  "engine_lines": [
+   "ds4: CUDA0 layers [0, 39] + head: weights 5.86 GB, experts 2.88 GB (257 of 15360 in VRAM), caches 0.03 GB, 669 MiB free",
+   "ds4: 15103 routed experts on the CPU lane (146.9 GB, in place in the model's files), 8 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2791 ms (9.0 tok/s), 800 generated in 97831 ms (8.18 tok/s); CPU lane 58.8% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 332 ms (3.0 tok/s), 800 generated in 90714 ms (8.82 tok/s); CPU lane 58.1% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 333 ms (3.0 tok/s), 800 generated in 90750 ms (8.82 tok/s); CPU lane 57.6% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 12345 ms (675.6 tok/s), 1 generated in 0 ms (3310.16 tok/s); CPU lane 17.1% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 6134 ms (22.0 tok/s), 3000 generated in 443665 ms (6.76 tok/s); CPU lane 35.8% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1672 ms (10.2 tok/s), 983 generated in 139992 ms (7.02 tok/s); CPU lane 40.0% of the experts"
+  ],
+  "ended": "04.11 19:28:18"
+ },
+ {
+  "arm": "C",
+  "started": "04.11 19:28:18",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 91.7,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 8.73
+   },
+   {
+    "s": 86.6,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 9.24
+   },
+   {
+    "s": 84.6,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 9.46
+   }
+  ],
+  "prefill": {
+   "s": 12.2,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 542.2,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 7.38
+  },
+  "engine_lines": [
+   "ds4: CUDA0 layers [0, 39] + head: weights 5.86 GB, experts 3.62 GB (333 of 15360 in VRAM), caches 0.03 GB, 251 MiB free",
+   "ds4: 15027 routed experts on the CPU lane (146.2 GB, in place in the model's files), 8 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2798 ms (8.9 tok/s), 800 generated in 88867 ms (9.00 tok/s); CPU lane 54.4% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 320 ms (3.1 tok/s), 800 generated in 86277 ms (9.27 tok/s); CPU lane 54.0% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 286 ms (3.5 tok/s), 800 generated in 84261 ms (9.49 tok/s); CPU lane 54.4% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 12187 ms (684.3 tok/s), 1 generated in 0 ms (3271.18 tok/s); CPU lane 16.1% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 5950 ms (22.7 tok/s), 3000 generated in 400540 ms (7.49 tok/s); CPU lane 34.2% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1556 ms (10.9 tok/s), 983 generated in 134167 ms (7.33 tok/s); CPU lane 37.9% of the experts"
+  ],
+  "ended": "04.11 19:42:35"
+ },
+ {
+  "arm": "D",
+  "started": "04.11 22:32:36",
+  "flash_next_contaminat": false,
+  "ready": false,
+  "engine_lines": [],
+  "ended": "04.11 22:32:59"
+ },
+ {
+  "arm": "D",
+  "started": "04.11 22:50:35",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 62.5,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.8
+   },
+   {
+    "s": 57.1,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 14.0
+   },
+   {
+    "s": 55.3,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 14.47
+   }
+  ],
+  "prefill": {
+   "s": 60.2,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.02
+  },
+  "think": {
+   "s": 475.5,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 8.41
+  },
+  "engine_lines": [
+   "ds4: 14108 routed experts on the CPU lane (137.1 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 3732 ms (6.7 tok/s), 300 generated in 35563 ms (8.44 tok/s); CPU lane 43.4% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2242 ms (11.1 tok/s), 800 generated in 60235 ms (13.28 tok/s); CPU lane 37.0% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 261 ms (3.8 tok/s), 800 generated in 56868 ms (14.07 tok/s); CPU lane 35.2% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 287 ms (3.5 tok/s), 800 generated in 55005 ms (14.54 tok/s); CPU lane 34.2% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 60156 ms (138.6 tok/s), 1 generated in 6 ms (172.03 tok/s); CPU lane 8.5% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 23057 ms (5.9 tok/s), 3000 generated in 341442 ms (8.79 tok/s); CPU lane 21.5% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1462 ms (11.6 tok/s), 983 generated in 109541 ms (8.97 tok/s); CPU lane 24.5% of the experts"
+  ],
+  "ended": "04.11 23:03:45"
+ },
+ {
+  "arm": "E",
+  "started": "04.11 23:03:45",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 62.4,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.83
+   },
+   {
+    "s": 62.0,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.9
+   },
+   {
+    "s": 60.3,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.27
+   }
+  ],
+  "prefill": {
+   "s": 12.2,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 428.8,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 9.33
+  },
+  "engine_lines": [
+   "ds4: 15024 routed experts on the CPU lane (146.2 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2471 ms (10.1 tok/s), 300 generated in 29535 ms (10.16 tok/s); CPU lane 58.5% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1056 ms (23.7 tok/s), 800 generated in 61300 ms (13.05 tok/s); CPU lane 54.2% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 272 ms (3.7 tok/s), 800 generated in 61755 ms (12.95 tok/s); CPU lane 54.0% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 243 ms (4.1 tok/s), 800 generated in 60043 ms (13.32 tok/s); CPU lane 53.3% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 12151 ms (686.4 tok/s), 1 generated in 0 ms (3247.81 tok/s); CPU lane 17.2% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 6149 ms (22.0 tok/s), 3000 generated in 320049 ms (9.37 tok/s); CPU lane 35.0% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1179 ms (14.4 tok/s), 983 generated in 101445 ms (9.69 tok/s); CPU lane 38.6% of the experts"
+  ],
+  "ended": "04.11 23:15:22"
+ },
+ {
+  "arm": "F",
+  "started": "04.11 23:15:22",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 60.1,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.32
+   },
+   {
+    "s": 57.3,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.97
+   },
+   {
+    "s": 57.7,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.87
+   }
+  ],
+  "prefill": {
+   "s": 11.7,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.09
+  },
+  "think": {
+   "s": 466.2,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 8.58
+  },
+  "engine_lines": [
+   "ds4: 15027 routed experts on the CPU lane (146.2 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2269 ms (11.0 tok/s), 300 generated in 28281 ms (10.61 tok/s); CPU lane 59.0% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1055 ms (23.7 tok/s), 800 generated in 59016 ms (13.56 tok/s); CPU lane 53.2% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 123 ms (8.1 tok/s), 800 generated in 57123 ms (14.00 tok/s); CPU lane 52.1% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 127 ms (7.9 tok/s), 800 generated in 57529 ms (13.91 tok/s); CPU lane 51.9% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 11736 ms (710.6 tok/s), 1 generated in 0 ms (3224.77 tok/s); CPU lane 16.8% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 5774 ms (23.4 tok/s), 3000 generated in 346859 ms (8.65 tok/s); CPU lane 34.4% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1431 ms (11.9 tok/s), 983 generated in 112087 ms (8.77 tok/s); CPU lane 38.3% of the experts"
+  ],
+  "ended": "04.11 23:27:24"
+ },
+ {
+  "arm": "G",
+  "started": "04.11 23:27:24",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 65.3,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.25
+   },
+   {
+    "s": 62.6,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.78
+   },
+   {
+    "s": 62.0,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.91
+   }
+  ],
+  "prefill": {
+   "s": 12.0,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 428.7,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 9.33
+  },
+  "engine_lines": [
+   "ds4: 15093 routed experts on the CPU lane (146.9 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2447 ms (10.2 tok/s), 300 generated in 30806 ms (9.74 tok/s); CPU lane 65.6% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1109 ms (22.5 tok/s), 800 generated in 64169 ms (12.47 tok/s); CPU lane 60.1% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 245 ms (4.1 tok/s), 800 generated in 62325 ms (12.84 tok/s); CPU lane 58.6% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 242 ms (4.1 tok/s), 800 generated in 61713 ms (12.96 tok/s); CPU lane 57.7% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 11975 ms (696.4 tok/s), 1 generated in 0 ms (3217.50 tok/s); CPU lane 18.6% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 6022 ms (22.4 tok/s), 3000 generated in 317678 ms (9.44 tok/s); CPU lane 36.3% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1224 ms (13.9 tok/s), 983 generated in 103786 ms (9.47 tok/s); CPU lane 40.1% of the experts"
+  ],
+  "ended": "04.11 23:39:07"
+ },
+ {
+  "arm": "H",
+  "started": "05.11 00:31:48",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 63.1,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.68
+   },
+   {
+    "s": 60.6,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.21
+   },
+   {
+    "s": 58.0,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.8
+   }
+  ],
+  "prefill": {
+   "s": 12.1,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 481.3,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 8.31
+  },
+  "engine_lines": [
+   "ds4: 15027 routed experts on the CPU lane (146.2 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2308 ms (10.8 tok/s), 300 generated in 29704 ms (10.10 tok/s); CPU lane 61.5% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1324 ms (18.9 tok/s), 800 generated in 61751 ms (12.96 tok/s); CPU lane 55.7% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 144 ms (7.0 tok/s), 800 generated in 60410 ms (13.24 tok/s); CPU lane 54.2% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 130 ms (7.7 tok/s), 800 generated in 57840 ms (13.83 tok/s); CPU lane 52.9% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 12085 ms (690.1 tok/s), 1 generated in 0 ms (3203.08 tok/s); CPU lane 17.1% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 5953 ms (22.7 tok/s), 3000 generated in 348454 ms (8.61 tok/s); CPU lane 34.5% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1379 ms (12.3 tok/s), 983 generated in 125509 ms (7.83 tok/s); CPU lane 38.1% of the experts"
+  ],
+  "ended": "05.11 00:44:14"
+ },
+ {
+  "arm": "I",
+  "started": "05.11 00:44:14",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 67.7,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 11.82
+   },
+   {
+    "s": 60.2,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.29
+   },
+   {
+    "s": 59.0,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.56
+   }
+  ],
+  "prefill": {
+   "s": 60.3,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.02
+  },
+  "think": {
+   "s": 566.2,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 7.06
+  },
+  "engine_lines": [
+   "ds4: 14108 routed experts on the CPU lane (137.1 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2928 ms (8.5 tok/s), 300 generated in 32318 ms (9.28 tok/s); CPU lane 42.0% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1788 ms (14.0 tok/s), 800 generated in 65883 ms (12.14 tok/s); CPU lane 36.8% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 199 ms (5.0 tok/s), 800 generated in 59962 ms (13.34 tok/s); CPU lane 35.1% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 211 ms (4.7 tok/s), 800 generated in 58774 ms (13.61 tok/s); CPU lane 34.5% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 60254 ms (138.4 tok/s), 1 generated in 0 ms (2912.06 tok/s); CPU lane 8.6% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 23214 ms (5.8 tok/s), 3000 generated in 413452 ms (7.26 tok/s); CPU lane 21.5% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1618 ms (10.5 tok/s), 983 generated in 127929 ms (7.68 tok/s); CPU lane 24.3% of the experts"
+  ],
+  "ended": "05.11 00:59:02"
+ },
+ {
+  "arm": "R",
+  "started": "05.11 00:59:02",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 67.7,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 11.82
+   },
+   {
+    "s": 65.9,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.14
+   },
+   {
+    "s": 64.5,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.41
+   }
+  ],
+  "prefill": {
+   "s": 12.4,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 444.2,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 9.0
+  },
+  "engine_lines": [
+   "ds4: 15101 routed experts on the CPU lane (146.9 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2290 ms (10.9 tok/s), 300 generated in 30241 ms (9.92 tok/s); CPU lane 62.8% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1181 ms (21.2 tok/s), 800 generated in 66490 ms (12.03 tok/s); CPU lane 58.9% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 278 ms (3.6 tok/s), 800 generated in 65608 ms (12.19 tok/s); CPU lane 57.8% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 254 ms (3.9 tok/s), 800 generated in 64208 ms (12.46 tok/s); CPU lane 57.3% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 12400 ms (672.6 tok/s), 1 generated in 0 ms (2298.85 tok/s); CPU lane 18.5% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 6252 ms (21.6 tok/s), 3000 generated in 332157 ms (9.03 tok/s); CPU lane 36.8% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1605 ms (10.6 tok/s), 983 generated in 104181 ms (9.44 tok/s); CPU lane 40.7% of the experts"
+  ],
+  "ended": "05.11 01:11:09"
+ },
+ {
+  "arm": "J",
+  "started": "05.11 01:54:14",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 75.1,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 10.65
+   },
+   {
+    "s": 66.6,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 12.02
+   },
+   {
+    "s": 69.4,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 11.53
+   }
+  ],
+  "prefill": {
+   "s": 12.6,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 501.7,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 7.97
+  },
+  "engine_lines": [
+   "ds4: 15027 routed experts on the CPU lane (146.2 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2866 ms (8.7 tok/s), 300 generated in 31045 ms (9.66 tok/s); CPU lane 61.8% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1791 ms (14.0 tok/s), 800 generated in 73301 ms (10.91 tok/s); CPU lane 59.7% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 135 ms (7.4 tok/s), 800 generated in 66446 ms (12.04 tok/s); CPU lane 57.9% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 165 ms (6.0 tok/s), 800 generated in 69186 ms (11.56 tok/s); CPU lane 57.2% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 12616 ms (661.1 tok/s), 1 generated in 0 ms (3129.89 tok/s); CPU lane 18.5% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 6826 ms (19.8 tok/s), 3000 generated in 373433 ms (8.03 tok/s); CPU lane 35.7% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1546 ms (11.0 tok/s), 983 generated in 119926 ms (8.20 tok/s); CPU lane 39.6% of the experts"
+  ],
+  "ended": "05.11 02:07:32"
+ },
+ {
+  "arm": "K",
+  "started": "05.11 02:07:32",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 49.8,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 16.08
+   },
+   {
+    "s": 45.4,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 17.64
+   },
+   {
+    "s": 44.3,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 18.05
+   }
+  ],
+  "prefill": {
+   "s": 56.5,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.02
+  },
+  "think": {
+   "s": 417.7,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 9.58
+  },
+  "engine_lines": [
+   "ds4: 14108 routed experts on the CPU lane (137.1 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2436 ms (10.3 tok/s), 300 generated in 26930 ms (11.14 tok/s); CPU lane 41.9% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 888 ms (28.2 tok/s), 800 generated in 48852 ms (16.38 tok/s); CPU lane 33.4% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 143 ms (7.0 tok/s), 800 generated in 45217 ms (17.69 tok/s); CPU lane 31.6% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 177 ms (5.6 tok/s), 800 generated in 44137 ms (18.13 tok/s); CPU lane 30.7% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 56464 ms (147.7 tok/s), 1 generated in 0 ms (2686.01 tok/s); CPU lane 7.6% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 20528 ms (6.6 tok/s), 3000 generated in 302641 ms (9.91 tok/s); CPU lane 20.2% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1350 ms (12.6 tok/s), 983 generated in 93161 ms (10.55 tok/s); CPU lane 23.1% of the experts"
+  ],
+  "ended": "05.11 02:18:55"
+ },
+ {
+  "arm": "L",
+  "started": "05.11 10:16:24",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 61.4,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.04
+   },
+   {
+    "s": 55.2,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 14.49
+   },
+   {
+    "s": 55.7,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 14.35
+   }
+  ],
+  "prefill": {
+   "s": 12.0,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 449.3,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 8.9
+  },
+  "engine_lines": [
+   "ds4: 15027 routed experts on the CPU lane (146.2 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2213 ms (11.3 tok/s), 300 generated in 28258 ms (10.62 tok/s); CPU lane 60.2% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1030 ms (24.3 tok/s), 800 generated in 60326 ms (13.26 tok/s); CPU lane 54.4% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 117 ms (8.6 tok/s), 800 generated in 55078 ms (14.52 tok/s); CPU lane 52.6% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 131 ms (7.7 tok/s), 800 generated in 55611 ms (14.39 tok/s); CPU lane 52.1% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 12016 ms (694.1 tok/s), 1 generated in 0 ms (3141.69 tok/s); CPU lane 16.8% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 5921 ms (22.8 tok/s), 3000 generated in 334520 ms (8.97 tok/s); CPU lane 34.6% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1309 ms (13.0 tok/s), 983 generated in 107570 ms (9.14 tok/s); CPU lane 38.3% of the experts"
+  ],
+  "ended": "05.11 10:28:07"
+ },
+ {
+  "arm": "M",
+  "started": "05.11 10:28:07",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 57.2,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.99
+   },
+   {
+    "s": 52.9,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 15.13
+   },
+   {
+    "s": 55.0,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 14.56
+   }
+  ],
+  "prefill": {
+   "s": 11.5,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.09
+  },
+  "think": {
+   "s": 425.9,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 9.39
+  },
+  "engine_lines": [
+   "ds4: 15027 routed experts on the CPU lane (146.2 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2144 ms (11.7 tok/s), 300 generated in 26191 ms (11.45 tok/s); CPU lane 58.3% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1021 ms (24.5 tok/s), 800 generated in 56141 ms (14.25 tok/s); CPU lane 53.7% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 106 ms (9.4 tok/s), 800 generated in 52742 ms (15.17 tok/s); CPU lane 51.6% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 114 ms (8.8 tok/s), 800 generated in 54819 ms (14.59 tok/s); CPU lane 51.3% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 11453 ms (728.2 tok/s), 1 generated in 0 ms (3278.69 tok/s); CPU lane 16.6% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 5368 ms (25.1 tok/s), 3000 generated in 313537 ms (9.57 tok/s); CPU lane 33.8% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1324 ms (12.8 tok/s), 983 generated in 105628 ms (9.31 tok/s); CPU lane 37.4% of the experts"
+  ],
+  "ended": "05.11 10:39:17"
+ },
+ {
+  "arm": "N",
+  "started": "05.11 10:39:17",
+  "flash_next_contaminat": false,
+  "ready": true,
+  "decode": [
+   {
+    "s": 61.0,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.11
+   },
+   {
+    "s": 59.7,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 13.4
+   },
+   {
+    "s": 55.2,
+    "pt": 25,
+    "ct": 800,
+    "tok_s": 14.5
+   }
+  ],
+  "prefill": {
+   "s": 11.8,
+   "pt": 8340,
+   "ct": 1,
+   "tok_s": 0.08
+  },
+  "think": {
+   "s": 436.2,
+   "pt": 135,
+   "ct": 4000,
+   "tok_s": 9.17
+  },
+  "engine_lines": [
+   "ds4: 15027 routed experts on the CPU lane (146.2 GB, in place in the model's files), 6 threads",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 2062 ms (12.1 tok/s), 300 generated in 25938 ms (11.57 tok/s); CPU lane 57.3% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 0 reused + 25 read in 1037 ms (24.1 tok/s), 800 generated in 59983 ms (13.34 tok/s); CPU lane 54.8% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 108 ms (9.2 tok/s), 800 generated in 59607 ms (13.42 tok/s); CPU lane 54.3% of the experts",
+   "maya ds4 serve: prompt 25 tokens = 24 reused + 1 read in 125 ms (8.0 tok/s), 800 generated in 55040 ms (14.53 tok/s); CPU lane 53.1% of the experts",
+   "maya ds4 serve: prompt 8340 tokens = 0 reused + 8340 read in 11839 ms (704.5 tok/s), 1 generated in 0 ms (3069.37 tok/s); CPU lane 17.1% of the experts",
+   "maya ds4 serve: prompt 135 tokens = 0 reused + 135 read in 5476 ms (24.7 tok/s), 3000 generated in 326400 ms (9.19 tok/s); CPU lane 34.7% of the experts",
+   "maya ds4 serve: prompt 3152 tokens = 3135 reused + 17 read in 1336 ms (12.7 tok/s), 983 generated in 102939 ms (9.55 tok/s); CPU lane 38.3% of the experts"
+  ],
+  "ended": "05.11 10:50:48"
+ }
+]
