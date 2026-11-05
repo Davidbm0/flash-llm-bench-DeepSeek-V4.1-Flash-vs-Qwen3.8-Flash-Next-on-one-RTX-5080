@@ -1,10 +1,11 @@
-# Local LLM benchmark — DeepSeek V4.1-Flash vs Qwen3.8-Flash-Next
+# flash-llm-bench — DeepSeek V4.1-Flash vs Qwen3.8-Flash-Next on one RTX 5080
 
-Private repo with benchmark results, evaluation scripts and configs from local
-inference experiments on a consumer PC (November 2026).
+Benchmark suite + raw results from fully-local inference experiments (November 2026):
+speed tuning of a huge MoE that does not fit in 16 GB VRAM, a head-to-head accuracy
+run between the two models, and a partial Humanity's Last Exam evaluation.
 
 **Hardware:** AMD Ryzen 7 7800X3D · RTX 5080 16 GB (+ RTX 3080 10 GB, used only for
-split-GPU tests) · 96 GB DDR5 · NVMe Gen4
+split-GPU tests) · 96 GB DDR5 · NVMe Gen5
 **Serving:** Strata local inference server (OpenAI-compatible API, ports 8080/8081)
 
 ## Models tested
@@ -17,6 +18,26 @@ split-GPU tests) · 96 GB DDR5 · NVMe Gen4
 DeepSeek V4.1-Flash is a huge MoE: only ~6679 of the routed experts fit in the
 96 GB RAM store, the rest is streamed from NVMe on every token ("CPU lane").
 Most of the benchmark work below is about tuning that offload.
+
+### The RTX 5080 constraint
+
+The whole benchmark is shaped by one number: **16 GB VRAM**.
+
+- DeepSeek V4.1-Flash's routed experts total **~149 GB** — 9x more than the 5080
+  holds. Only the dense layers + attention + ~250 of 15360 experts fit on the GPU
+  (~11 GB); everything else is offloaded: 76 GB hot-expert store in DDR5 RAM, the
+  remaining ~147 GB read in place from the Gen5 NVMe file.
+- This is why decode is ~9–15 tok/s instead of the 55–96 tok/s Qwen gets: every
+  token touches ~5 experts, and ~1/3 of them miss the RAM store and come off disk.
+- The 16 GB cap also forces **5 experts/word** ("faster mode") instead of the full
+  6 — the engine picks this automatically on ≤16 GiB VRAM. Arm J shows forcing 6
+  costs −13% decode with no accuracy gain, so the cap costs nothing in practice.
+- The RTX 3080 (10 GB) cannot meaningfully join the same model: expert layers split
+  per-GPU, and prefill collapses ~5x (arms D/I/K). It only helps raw generation
+  speed (K: 18 tok/s), not real workloads.
+- Practical ceiling on this box: a MoE needs roughly (active-weights × ~1.3) in VRAM
+  for comfortable speed. DeepSeek V4.1-Flash at 2.25 bpw is right at the edge;
+  Qwen3.8-Flash-Next IQ3_XXS (~14.5 GB) fits fully and is ~6x faster per token.
 
 ---
 
