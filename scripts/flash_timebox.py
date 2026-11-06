@@ -1,51 +1,59 @@
-# flash_timebox.py — Qwen3.8-Flash-Next (port 8080) pe suita de 10 probleme (P1-P5 + E1-E5)
-# REGULA: buget de timp per problema = timpul exact in care DeepSeek M5 a rezolvat-o (pass@1,
-# din DSV41-M5_think.json). Flash primeste acelasi wall-clock budget dar cu self-repair
-# iterativ: atatea incercari cate incap in buget (eroarea exacta e trimisa inapoi in chat).
-# Metric final: X/10 rezolvate in bugetul DeepSeek. Progres salvat dupa FIECARE problema.
-import json, os, sys, time, urllib.request
+# flash_timebox.py — time-boxed comparison: a FAST model vs a SLOW model's wall-clock
+#
+# Rule: the fast model gets exactly the slow model's per-problem wall-clock budget
+# (read from the slow model's pass@1 result JSON), but may iterate — failing code +
+# the exact traceback is fed back until the budget runs out.
+# Metric: X/10 solved inside the slow model's time. Progress saved after each problem.
+#
+# Usage:
+#   python coding_eval.py --port 8081 --model slow-model --setup SLOW --mode think --max-repairs 0
+#   python flash_timebox.py --port 8080 --model fast-model --budgets results/SLOW_think.json
+import json, os, sys, time, argparse, urllib.request
 
-HERE = r"C:\Users\black\Desktop\Cronos Work\dsv41-tuning"
-QWEN = r"C:\Users\black\Desktop\Cronos Work\qwen35-comparatie"
-sys.path.insert(0, QWEN)
+HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
-import coding_eval_extreme as ce
+import coding_eval as ce
 import new_problems
 
-BUDGETS = os.path.join(QWEN, "results", "DSV41-M5_think.json")
-OUT  = os.path.join(HERE, "flash_timebox.json")
-PROG = os.path.join(HERE, "flash_timebox_progress.log")
-
-PORT, MODEL, MAXTOK = 8080, "qwen3.8-flash-next-iq3_xxs", 16384
-BASE = f"http://127.0.0.1:{PORT}/v1"
-
-def log(msg):
+def log(msg, prog=None):
     print(msg, flush=True)
-    with open(PROG, "a", encoding="utf-8") as f:
-        f.write(msg + "\n")
+    if prog:
+        with open(prog, "a", encoding="utf-8") as f:
+            f.write(msg + "\n")
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--port", type=int, required=True)
+    ap.add_argument("--model", required=True)
+    ap.add_argument("--budgets", required=True,
+                    help="JSON from coding_eval.py (slow model, --max-repairs 0): per-problem t_s")
+    ap.add_argument("--max-tokens", type=int, default=16384)
+    ap.add_argument("--out", default=os.path.join(HERE, "timebox.json"))
+    ap.add_argument("--progress", default=os.path.join(HERE, "timebox_progress.log"))
+    a = ap.parse_args()
+
+    base = f"http://127.0.0.1:{a.port}/v1"
     try:
-        urllib.request.urlopen(BASE + "/models", timeout=5).read()
+        urllib.request.urlopen(base + "/models", timeout=5).read()
     except Exception:
-        log("FLASH-Next nu e pornit pe 8080 — porneste-l (run-iq3_xxs.bat) si ruleaza din nou.")
+        log("model server not reachable on port " + str(a.port) + " — start it first.", a.progress)
         return
 
     budgets = {k: v["attempts"][0]["t_s"]
-               for k, v in json.load(open(BUDGETS, encoding="utf-8"))["detail"].items()}
+               for k, v in json.load(open(a.budgets, encoding="utf-8"))["detail"].items()}
     suite = ce.build_problems("ref14") + new_problems.build_new_problems()
 
-    out = {"setup": "FLASH-TIMEBOX", "model": MODEL, "mode": "think",
-           "rule": "buget per problema = t_s DeepSeek M5 (pass@1 single step); "
-                   "self-repair iterativ in buget (traceback exact trimis inapoi)",
+    out = {"setup": "TIMEBOX", "model": a.model, "mode": "think",
+           "rule": "per-problem budget = slow model's pass@1 single-step t_s; "
+                   "iterative self-repair inside the budget (exact traceback fed back)",
            "date": time.strftime("%Y-%m-%d %H:%M"),
-           "budgets": budgets, "pass1_budget": 0, "detail": {}}
+           "budgets": budgets, "solved_in_budget": 0, "detail": {}}
 
     total0 = time.time()
     for name, prompt, asserts in suite:
         budget = budgets[name]
-        log(f"--- {name}: buget {budget:.0f}s (cat a facut DeepSeek M5)")
+        log(f"--- {name}: budget {budget:.0f}s (what the slow model needed)", a.progress)
         msgs = [{"role": "system", "content": "You are a Python expert. Complete the function. Reply ONLY with the code inside one ```python block. No explanations."},
                 {"role": "user", "content": prompt}]
         attempts = []
@@ -57,10 +65,10 @@ def main():
                 break
             try:
                 content, reasoning, dt, ctok, finish = ce.ask(
-                    BASE, MODEL, msgs, "think", MAXTOK, http_timeout=int(remaining))
+                    base, a.model, msgs, "think", a.max_tokens, http_timeout=int(remaining))
             except Exception as e:
                 attempts.append({"error": str(e)[:200], "cum_s": round(time.time() - t0, 1)})
-                log(f"  incercarea {len(attempts)+1}: EXCEPTIE {str(e)[:120]}")
+                log(f"  attempt {len(attempts)+1}: EXCEPTION {str(e)[:120]}", a.progress)
                 break
             code = ce.extract_code(content) or ce.extract_code(reasoning)
             ok, err = ce.run_tests(code, asserts)
@@ -71,8 +79,8 @@ def main():
             if not ok:
                 rec["err"] = err[-600:]
             attempts.append(rec)
-            log(f"  incercarea {len(attempts)}: {'PASS' if ok else 'fail'} "
-                f"(tg={rec['tg_total']} t/s, {dt:.0f}s, cumulativ {rec['cum_s']:.0f}s/{budget:.0f}s)")
+            log(f"  attempt {len(attempts)}: {'PASS' if ok else 'fail'} "
+                f"(tg={rec['tg_total']} t/s, {dt:.0f}s, cumulative {rec['cum_s']:.0f}s/{budget:.0f}s)", a.progress)
             if ok:
                 ok_final = True
                 break
@@ -98,18 +106,18 @@ def main():
             "pass_at": next((i + 1 for i, v in enumerate(attempts) if v.get("ok")), None),
             "attempts": attempts,
         }
-        out["pass1_budget"] += int(ok_final)
+        out["solved_in_budget"] += int(ok_final)
         out["n_done"] = len(out["detail"])
-        with open(OUT, "w", encoding="utf-8") as f:
+        with open(a.out, "w", encoding="utf-8") as f:
             json.dump(out, f, indent=1)
-        log(f"  => {name}: {'REZOLVAT' if ok_final else 'NESOLVAT'} in buget "
-            f"({out['detail'][name]['used_s']:.0f}s / {budget:.0f}s, {len(attempts)} incercari)")
+        log(f"  => {name}: {'SOLVED' if ok_final else 'NOT SOLVED'} in budget "
+            f"({out['detail'][name]['used_s']:.0f}s / {budget:.0f}s, {len(attempts)} attempts)", a.progress)
 
     out["seconds"] = round(time.time() - total0, 1)
-    out["score"] = f"{out['pass1_budget']}/{len(suite)} in bugetul DeepSeek"
-    with open(OUT, "w", encoding="utf-8") as f:
+    out["score"] = f"{out['solved_in_budget']}/{len(suite)} inside the slow model's budget"
+    with open(a.out, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=1)
-    log(f"SCOR FINAL: {out['score']} in {out['seconds']}s -> {OUT}")
+    log(f"FINAL SCORE: {out['score']} in {out['seconds']}s -> {a.out}", a.progress)
 
 if __name__ == "__main__":
     main()

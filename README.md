@@ -1,12 +1,16 @@
 # flash-llm-bench — DeepSeek V4.1-Flash vs Qwen3.8-Flash-Next on one RTX 5080
 
-Benchmark suite + raw results from fully-local inference experiments (November 2026):
+Benchmark suite + results from fully-local inference experiments (November 2026):
 speed tuning of a huge MoE that does not fit in 16 GB VRAM, a head-to-head accuracy
 run between the two models, and a partial Humanity's Last Exam evaluation.
 
 **Hardware:** AMD Ryzen 7 7800X3D · RTX 5080 16 GB (+ RTX 3080 10 GB, used only for
 split-GPU tests) · 96 GB DDR5 · NVMe Gen5
 **Serving:** Strata local inference server (OpenAI-compatible API, ports 8080/8081)
+
+All eval scripts talk to any **OpenAI-compatible** `/v1/chat/completions` endpoint
+(llama.cpp `llama-server`, vLLM, Strata, ...), so you can run the whole suite against
+your own model in a few minutes. See [Run it yourself](#run-it-yourself).
 
 ## Models tested
 
@@ -49,8 +53,6 @@ config, warms up, then measures:
 - **think** — 4000 reasoning tokens on a reasoning prompt
 - **prefill** — 8340-token prompt read speed
 
-Results: `results/bench/arms_results.json` (raw, includes engine log lines).
-
 | Arm | Config | decode warm (tok/s) | think (tok/s) | prefill (tok/s) |
 |---|---|---|---|---|
 | A | baseline | 11.55 | 8.20 | 641 |
@@ -73,8 +75,8 @@ Notes on methodology:
 - Cross-round numbers are NOT comparable: the engine's expert-hotness profile
   warms up during the day (+9% drift measured with control arm R vs A).
   Compare arms only within a round.
-- `prefill` for L/M/N in the raw JSON shows 0.08 tok/s — a parse bug in the
-  bench (prompt reused from cache); real values from engine logs: 694–728 tok/s.
+- `prefill` for L/M/N in the raw engine output showed 0.08 tok/s — a parse bug in
+  the bench (prompt reused from cache); real values from engine logs: 694–728 tok/s.
 - Flash-Next running on the same box steals ~45 GB RAM → DeepSeek drops to
   4–5 tok/s. All numbers above were measured with it stopped.
 
@@ -100,17 +102,15 @@ LFU + `--ssd-cache 76` + budget 12000, ctx 32K, single 5080, 5 experts/word.
 
 ## 2. Accuracy — 10 hard engineering problems
 
-Suite (`scripts/new_problems.py` + `scripts/ref_extreme5.py`): Dijkstra with
+Suite (`scripts/coding_eval.py` + `scripts/new_problems.py`): Dijkstra with
 parity state, microstrip impedance inverse solve, transaction-lock engine with
 deadlock detection, PDN impedance anti-resonance scan, AST affine optimizer,
 coupled microstrip MTL, 2-D FDM Laplace solver, SPICE-style diode RC transient,
 SerDes FFE/DFE eye analytic, RF conjugate-match synthesis. Each problem is
-graded by running the model's code against a hand-verified reference
-(`ref_extreme5.py`, 5/5 self-checked).
+graded by running the model's code against hand-verified asserts; the E1–E5
+ground truth is re-derivable by running `scripts/ref_extreme5.py` (5/5 self-checked).
 
 ### DeepSeek V4.1-Flash, cfg_M, single shot (pass@1, no repairs)
-
-`results/accuracy/DSV41-M5_think.json`
 
 **10/10 pass@1, 6681 s total (~111 min).** All 10 solved on the first attempt,
 all `finish=stop` (no truncation). Per-problem: 192–1186 s.
@@ -120,8 +120,6 @@ all `finish=stop` (no truncation). Per-problem: 192–1186 s.
 Rule (`scripts/flash_timebox.py`): Flash gets exactly DeepSeek M5's wall-clock
 budget per problem, but may iterate — failing code + exact traceback is fed
 back until the budget runs out.
-
-`results/accuracy/flash_timebox.json`
 
 | Problem | DeepSeek budget (s) | Flash solved in (s) | Attempts |
 |---|---|---|---|
@@ -159,33 +157,82 @@ Qwen3.8-Flash-Next, first 27 questions: **1/27 correct.**
 Failure mode: the model burns the whole budget on circular "thinking" (recall
 loops, re-deriving facts) and often hits the token limit before emitting a
 final answer. Stopped the run at 27/100 — the trend made the remaining 73
-questions pointless. DeepSeek on the same sample was planned but not run.
-
-`results/hle/hle_results.json` contains the 27-question partial detail.
+questions pointless. (The single "correct" was also a grading false positive:
+gold `ABC` matched a prediction of `A, B, C, D, E` via substring — clean score 0/27.)
 
 ---
+
+## Run it yourself
+
+Everything below needs only **Python 3.10+** and any model server exposing
+`/v1/chat/completions`. Example with llama.cpp:
+
+```bash
+llama-server -m YourModel-Q4_K_M.gguf --port 8080 --ctx-size 16384
+```
+
+### 2-minute check: the accuracy suite
+
+```bash
+cd scripts
+python coding_eval.py --port 8080 --model your-model --setup MYRUN --mode think --max-repairs 0
+```
+
+That runs all 10 problems (P1–P5 + E1–E5), single shot = **pass@1**. Add
+`--max-repairs 4` for **pass@5** with self-repair (the exact traceback is fed
+back to the model). Other useful flags: `--suite p` / `--suite e` (only one
+half), `--problems p2,e4` (subset), `--mode nothink`.
+
+Verify the ground truth yourself first (recommended):
+
+```bash
+python ref_extreme5.py     # must print: VERDICT: 5/5 ground-truth VERIFICAT
+```
+
+### Time-boxed fast-vs-slow comparison
+
+1. Run the slow model single-shot (its per-problem times become the budgets):
+   ```bash
+   python coding_eval.py --port 8081 --model slow-model --setup SLOW --mode think --max-repairs 0
+   ```
+2. Give the fast model exactly those budgets, with self-repair allowed:
+   ```bash
+   python flash_timebox.py --port 8080 --model fast-model --budgets results/SLOW_think.json
+   ```
+   Score = how many problems the fast model solves inside the slow model's time.
+
+### HLE
+
+```bash
+pip install pandas pyarrow huggingface_hub
+hf download cais/hle --repo-type dataset   # gated: accept the dataset terms on HF first
+# move the downloaded parquet(s) into scripts/data/
+HLE_PORT=8080 HLE_MODEL=your-model python hle_eval.py
+```
+
+Env knobs: `HLE_BUDGET` (s per question, default 300), `HLE_MAXTOK`,
+`HLE_THINK_BUDGET` (cap thinking for slow models), `HLE_OUT`/`HLE_PROG`.
+Full 2500-question run is ~60 h at Flash speed — the default sample is 100
+questions, stratified, seed 42.
+
+### Speed bench
+
+`scripts/bench_arms.py` is a template: set `SERVER_CMD` to your server launch
+command and adapt the arms to your engine's flags. The measurement logic
+(warm-up → decode → prefill → think) is server-agnostic.
 
 ## Files
 
 ```
-configs/cfg_M.json            final recommended DeepSeek config (sanitized)
-scripts/bench_arms.py         speed benchmark harness (arms A–N)
-scripts/accuracy_5v6.py       accuracy comparison driver
-scripts/acc_eval.py           problem-suite wrapper
-scripts/new_problems.py       problems P1–P5 (prompts + asserts)
-scripts/ref_extreme5.py       hand-verified references for E1–E5
-scripts/flash_timebox.py      time-boxed Flash eval (self-repair loop)
-scripts/hle_eval.py           HLE sample eval harness
-scripts/run_hle_ds.py         HLE runner for DeepSeek (not executed)
-results/bench/arms_results.json
-results/accuracy/DSV41-M5_think.json
-results/accuracy/flash_timebox.json
-results/hle/hle_results.json
+configs/cfg_M.json          final recommended DeepSeek config (sanitized)
+scripts/coding_eval.py      10-problem accuracy harness (pass@1 / pass@5)
+scripts/new_problems.py     problems E1-E5 (prompts + asserts)
+scripts/ref_extreme5.py     hand-verified references for E1-E5 (ground truth)
+scripts/flash_timebox.py    time-boxed fast-vs-slow eval (self-repair loop)
+scripts/hle_eval.py         HLE sample eval harness
+scripts/run_hle_ds.py       example: run the same HLE sample on a 2nd model
+scripts/bench_arms.py       speed benchmark template (arms A-N)
+scripts/accuracy_5v6.py     notes on the 5-vs-6-experts accuracy comparison
 ```
 
-## Reproduce
-
-Scripts assume the Strata server layout on the original machine (paths in
-`configs/cfg_M.json` are sanitized to placeholders). The eval logic itself is
-self-contained: each script talks to an OpenAI-compatible `/v1/chat/completions`
-endpoint (`--port` / env `HLE_PORT`), so any llama.cpp-class server works.
+Raw per-attempt JSONs are not included — the summary tables are in this README.
